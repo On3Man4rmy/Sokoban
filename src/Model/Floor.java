@@ -1,3 +1,5 @@
+package Model;
+
 public class Floor implements Square {
     public boolean goal=false;
 

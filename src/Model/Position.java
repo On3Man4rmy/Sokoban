@@ -1,3 +1,5 @@
+package Model;
+
 public class Position implements Square{
     int xPos;
     int yPos;
