@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * Saves the position of a movable Element
  */
-public class Position {
+public class Position implements Serializable {
     int xPos;
     int yPos;
 

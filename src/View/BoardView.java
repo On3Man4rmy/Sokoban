@@ -6,9 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.beans.PropertyChangeListener;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
@@ -18,10 +19,53 @@ public class BoardView extends JInternalFrame implements Observer {
     private SquareView[][] squareViews;
     int rows;
     int cols;
+    JMenu[] menus={new JMenu("Construction"), new JMenu("Reset"),new JMenu("Save/Load")};
+    JMenuItem[] items={new JMenuItem("Save"),new JMenuItem("Load")};
 
     public BoardView(Sokoban sokoban) {
         super ("Game", true, true);
         setIconifiable (true); setMaximizable (true);
+        JMenuBar mb = new JMenuBar();
+        //TODO: Open new window for Construction
+        menus[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+        //TODO: make this actually work
+        menus[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sokoban.rebuildBoard();
+            }
+        });
+
+        for(int i=0;i<items.length;i++){
+            menus[2].add(items[i]);
+            final int k=i;
+            items[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(k==0){
+                        saveGame();
+                        }
+                    if(k==1){
+                        loadGame();
+                    }
+
+                }
+            });
+        }
+
+
+
+        mb.add(menus[0]);
+        mb.add(menus[1]);
+        mb.add(menus[2]);
+
+        setJMenuBar(mb);
 
         this.sokoban = sokoban;
         this.sokoban.addObserver(this);
@@ -66,8 +110,6 @@ public class BoardView extends JInternalFrame implements Observer {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                Square[] squareContent = sokoban.gameBoard[j][i];
-                for(Square content : squareContent) {
                     if(sokoban.gameBoard[j][i][0] instanceof Floor) {
                         if(((Floor) sokoban.gameBoard[j][i][0]).goal) {
                             squareViews[j][i].setBackground(Color.CYAN);
@@ -84,7 +126,7 @@ public class BoardView extends JInternalFrame implements Observer {
                     if(sokoban.gameBoard[j][i][1] instanceof Crate) {
                         squareViews[j][i].setBackground(Color.GREEN);
                     }
-                }
+
             }
         }
     }
@@ -107,5 +149,40 @@ public class BoardView extends JInternalFrame implements Observer {
             }
         });
 
+    }
+    public void saveGame(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        Date date = new Date();
+        String filename="Sokoban"+dateFormat.format(date)+".ser";
+
+        try {
+            FileOutputStream fs = new FileOutputStream (filename); // FOS oeffnen
+            ObjectOutputStream os = new ObjectOutputStream (fs);
+            os.writeObject(sokoban);
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadGame(){
+        JFileChooser c = new JFileChooser (new File("./"));
+        File selectedFile=null;
+        int returnValue = c.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = c.getSelectedFile();
+        }
+        if(selectedFile!=null){
+        try {
+            FileInputStream fs = new FileInputStream (selectedFile); // FIS oeffnen
+            ObjectInputStream is = new ObjectInputStream(fs); // OIS erzeugen
+            sokoban=(Sokoban)is.readObject();
+            is.close();
+            loadBoard();
+        } catch (ClassNotFoundException e) { // wenn Klasse nicht gefunden
+            System.err.println (e);
+        } catch (IOException e) { // wenn IO-Fehler aufgetreten
+            System.err.println (e);
+        }
+        }
     }
 }
