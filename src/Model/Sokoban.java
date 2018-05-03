@@ -108,19 +108,12 @@ public class Sokoban extends Observable {
      * @return          if the move was sucessful or not (not moving against wall or moving multiple crates/crates against wall)
      */
     public boolean moveElement (Direction direction, MovableElement element){
+        System.out.println("Player Postion: " + player.position);
+
         if (element==null) return false;
-        Position position;
-        switch (direction){
-            case UP: position=new Position(element.position.xPos,element.position.up());
-            break;
-            case DOWN:position=new Position(element.position.xPos,element.position.down());
-            break;
-            case LEFT:position=new Position(element.position.xPos,element.position.left());
-            break;
-            case RIGHT:position=new Position(element.position.xPos,element.position.right());
-            break;
-            default: position=null;
-        }
+        Position position=Position.movePosition(direction, element.position);
+        System.out.println(element.position);
+        System.out.println(position);
         if(!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
             MovableElement move=(MovableElement) gameBoard[position.xPos][position.yPos][1];
             if(((gameBoard[position.xPos][position.yPos][0] instanceof Crate)&&element instanceof Player) //Player moving a crate
@@ -133,10 +126,12 @@ public class Sokoban extends Observable {
                     notifyObservers();
                     return true;
                 }
+                System.out.println("not wall");
 
             }
 
         }
+        System.out.println("Wall");
         return false;
     }
 
