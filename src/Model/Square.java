@@ -1,5 +1,5 @@
 package Model;
 
-public interface Square {
+public abstract class Square {
 
 }

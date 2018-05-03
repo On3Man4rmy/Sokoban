@@ -1,6 +1,6 @@
 package Model;
 
-public class Position implements Square{
+public class Position{
     int xPos;
     int yPos;
 

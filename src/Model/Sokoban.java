@@ -127,7 +127,7 @@ public class Sokoban extends Observable {
                 if(move==null||moveElement(direction,move)){
                     gameBoard[element.position.xPos][element.position.yPos][1]=null;
                     element.position=position;
-                    gameBoard[element.position.xPos][element.position.yPos][1]=(Square)move;
+                    gameBoard[element.position.xPos][element.position.yPos][1]=move;
                     return true;
                 }
 

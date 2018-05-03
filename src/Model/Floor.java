@@ -1,6 +1,6 @@
 package Model;
 
-public class Floor implements Square {
+public class Floor extends Square {
     public boolean goal=false;
 
     public Floor(FloorElement floorElement){

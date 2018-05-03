@@ -1,6 +1,6 @@
 package Model;
 
-public abstract class MovableElement {
+public abstract class MovableElement extends Square {
     Position position;
 
 }
