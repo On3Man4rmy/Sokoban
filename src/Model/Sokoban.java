@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Observable;
 
+/**
+ * Main logic class
+ */
 public class Sokoban extends Observable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields

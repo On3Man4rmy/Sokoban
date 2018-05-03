@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Saves the position of a movable Element
+ */
 public class Position{
     int xPos;
     int yPos;

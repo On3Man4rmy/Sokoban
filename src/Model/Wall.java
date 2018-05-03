@@ -1,4 +1,7 @@
 package Model;
 
-public class Wall implements Square{
+/**
+ * Represents the wall/obstacle
+ */
+public class Wall extends Square{
 }
