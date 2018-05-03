@@ -23,4 +23,9 @@ public class Position{
     public int left(){
         return xPos-1;
     }
+
+    @Override
+    public String toString() {
+        return "{" + xPos + "; " + yPos + "}";
+    }
 }

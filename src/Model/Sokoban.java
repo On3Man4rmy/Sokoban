@@ -42,7 +42,7 @@ public class Sokoban extends Observable {
         for (int y = 0; y < arrayHeigth; y++) {
             char[] temp = inputFromFileArray.get(y).toCharArray();
 
-            for (int x = 0; x < arrayLenght; x++) {
+            for (int x = 0; x < temp.length; x++) {
                 switch (temp[x]) {
                     case '#': {
                         gameBoard[x][y][0] = new Wall();
@@ -63,7 +63,7 @@ public class Sokoban extends Observable {
                      */
                     case '*': {
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        gameBoard[x][y][1]=new Crate(x,y);
+                        gameBoard[x][y][1] = new Crate(x,y);
                         break;
                     }
                     /**
@@ -72,14 +72,12 @@ public class Sokoban extends Observable {
                     case '+': {
 
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        player=new Player(x,y);
-                        gameBoard[x][y][1]=player;
-
                         break;
                     }
                     case '@': {
                         gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        gameBoard[x][y][1]=new Player(x,y);
+                        player=new Player(x,y);
+                        gameBoard[x][y][1]= player;
                         break;
                     }
                     case ' ': {
@@ -123,7 +121,7 @@ public class Sokoban extends Observable {
             break;
             default: position=null;
         }
-        if(!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)){  //Not trying to move into wall
+        if(!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
             MovableElement move=(MovableElement) gameBoard[position.xPos][position.yPos][1];
             if(((gameBoard[position.xPos][position.yPos][0] instanceof Crate)&&element instanceof Player) //Player moving a crate
                     ||gameBoard[position.xPos][position.yPos][0] instanceof Floor){ //Element moving to empty square
@@ -131,6 +129,8 @@ public class Sokoban extends Observable {
                     gameBoard[element.position.xPos][element.position.yPos][1]=null;
                     element.position=position;
                     gameBoard[element.position.xPos][element.position.yPos][1]=move;
+                    setChanged();
+                    notifyObservers();
                     return true;
                 }
 
