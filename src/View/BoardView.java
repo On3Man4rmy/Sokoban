@@ -63,24 +63,25 @@ public class BoardView extends JInternalFrame implements Observer {
     }
 
     public void updateBoard() {
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Square[] squareContent = sokoban.gameBoard[j][i];
                 for(Square content : squareContent) {
-                    if(content instanceof Floor) {
-                        if(((Floor) content).goal) {
+                    if(sokoban.gameBoard[j][i][0] instanceof Floor) {
+                        if(((Floor) sokoban.gameBoard[j][i][0]).goal) {
                             squareViews[j][i].setBackground(Color.CYAN);
                         } else {
                             squareViews[j][i].setBackground(Color.LIGHT_GRAY);
                         }
                     }
-                    if(content instanceof Player) {
+                    if(sokoban.gameBoard[j][i][1] instanceof Player) {
                         squareViews[j][i].setBackground(Color.RED);
                     }
-                    if(content instanceof Wall) {
+                    if(sokoban.gameBoard[j][i][0] instanceof Wall) {
                         squareViews[j][i].setBackground(Color.DARK_GRAY);
                     }
-                    if(content instanceof Crate) {
+                    if(sokoban.gameBoard[j][i][1] instanceof Crate) {
                         squareViews[j][i].setBackground(Color.GREEN);
                     }
                 }
@@ -103,7 +104,6 @@ public class BoardView extends JInternalFrame implements Observer {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(actionName);
                 callback.accept(e);
-                System.out.println("Player Postion: " + sokoban.player.position);
             }
         });
 

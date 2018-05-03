@@ -113,7 +113,6 @@ public class Sokoban extends Observable {
         if (element==null) return false;
         Position position=Position.movePosition(direction, element.position);
         System.out.println(element.position);
-        System.out.println(position);
         if(!(gameBoard[position.xPos][position.yPos][0] instanceof Wall)) {  //Not trying to move into wall
             MovableElement move=(MovableElement) gameBoard[position.xPos][position.yPos][1];
             if(((gameBoard[position.xPos][position.yPos][0] instanceof Crate)&&element instanceof Player) //Player moving a crate
@@ -121,7 +120,7 @@ public class Sokoban extends Observable {
                 if(move==null||moveElement(direction,move)){
                     gameBoard[element.position.xPos][element.position.yPos][1]=null;
                     element.position=position;
-                    gameBoard[element.position.xPos][element.position.yPos][1]=move;
+                    gameBoard[element.position.xPos][element.position.yPos][1]=element;
                     setChanged();
                     notifyObservers();
                     return true;
