@@ -127,13 +127,13 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void updateBoard() {
-        int cratesOnGoalCount=0;
+        int cratesOnGoalCount = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Square[] squareContent = sokoban.gameBoard[j][i];
-                for(Square content : squareContent) {
-                    if(content instanceof Floor) {
-                        if(((Floor) content).goal) {
+                for (Square content : squareContent) {
+                    if (content instanceof Floor) {
+                        if (((Floor) content).goal) {
                             squareViews[j][i].setBackground(Colors.WILD_VIOLET_PETAL.getColor());
                             squareViews[j][i].setText(".");
                         } else {
@@ -141,24 +141,24 @@ public class BoardView extends JPanel implements Observer {
                             squareViews[j][i].setText("");
                         }
                     }
-                    if(content instanceof Player) {
+                    if (content instanceof Player) {
                         squareViews[j][i].setBackground(Colors.CANARINHO.getColor());
                         squareViews[j][i].setText("@");
                     }
-                    if(content instanceof Wall) {
+                    if (content instanceof Wall) {
                         squareViews[j][i].setBackground(Colors.SURRENDER_V2.getColor());
                         squareViews[j][i].setText("#");
                     }
-                    if(content instanceof Crate) {
+                    if (content instanceof Crate) {
                         squareViews[j][i].setBackground(Colors.A_SWING_TRUMPET_V2.getColor());
                         squareViews[j][i].setText("$");
                         /**
                          * checks if Crate is on Gal, if yes, changes backgroundcolor and icon to indicate this
                          * also increases goal count
                          */
-                        if(sokoban.gameBoard[j][i][0] instanceof Floor){
-                            Floor temp=(Floor)sokoban.gameBoard[j][i][0];
-                            if(temp.goal){
+                        if (sokoban.gameBoard[j][i][0] instanceof Floor) {
+                            Floor temp = (Floor) sokoban.gameBoard[j][i][0];
+                            if (temp.goal) {
                                 cratesOnGoalCount++;
                                 squareViews[j][i].setBackground(Color.RED);
                                 squareViews[j][i].setText("*");
@@ -170,9 +170,10 @@ public class BoardView extends JPanel implements Observer {
                 }
             }
         }
-        //TODO: fix crashes caused by isDOne being set true
-        if(cratesOnGoalCount==sokoban.getGoalCount()){
-            sokoban.setDone(true);
+        if (!sokoban.isDone()) {
+            if (cratesOnGoalCount == sokoban.getGoalCount()) {
+                sokoban.setDone(true);
+            }
         }
     }
 
