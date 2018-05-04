@@ -10,7 +10,9 @@ public enum Colors {
     SURRENDER_V2(210, 231, 166),
     GREENISH(76, 115, 24),
     // http://www.colourlovers.com/color/F8975A/A_Spring_Trumpet
-    A_SWING_TRUMPET_V2(248, 151, 90);
+    A_SWING_TRUMPET_V2(248, 151, 90),
+    // http://www.colourlovers.com/color/723E30/A_lifetime_ago
+    A_LIFETIME_AGO(114, 62, 48);
 
     private final int r;
     private final int g;

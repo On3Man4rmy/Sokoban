@@ -1,5 +1,6 @@
 import Model.Sokoban;
 import View.BoardView;
+import View.GameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +11,9 @@ public class App extends JFrame {
     public static void main(String[] args) {
         App app = new App();
         Sokoban sokoban = new Sokoban(new File("src/Resources/minicosmos.txt"));
+        GameView gameView = new GameView(sokoban);
         BoardView boardView = new BoardView(sokoban);
-        app.addChild(boardView, 0, 0);
+        app.addChild(gameView, 0, 0);
     }
 
     public App(){

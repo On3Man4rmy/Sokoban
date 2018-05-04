@@ -12,34 +12,30 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
 
-public class BoardView extends JInternalFrame implements Observer {
+public class BoardView extends JPanel implements Observer {
     private Sokoban sokoban;
     private SquareView[][] squareViews;
     int rows;
     int cols;
 
     public BoardView(Sokoban sokoban) {
-        super ("Game", true, true);
-        setIconifiable (true); setMaximizable (true);
-
         this.sokoban = sokoban;
         this.sokoban.addObserver(this);
         loadBoard();
         updateBoard();
-        registerKeyEvents();
         registerMouseEvents();
 
         setVisible(true);
     }
 
     private void registerMouseEvents() {
-        getContentPane().addMouseListener(new MouseAdapter() {
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 double x = e.getX();
                 double y = e.getY();
-                double width = getContentPane().getWidth();
-                double height = getContentPane().getHeight();
+                double width = getWidth();
+                double height = getHeight();
                 double ratio = height / width;
 
                 // Is mouseclick in top left half
@@ -59,37 +55,24 @@ public class BoardView extends JInternalFrame implements Observer {
         });
     }
 
-    public void registerKeyEvents() {
-        registerKeyAction("W", "moveUp", actionEvent ->
-                sokoban.moveElement(Direction.UP));
-        registerKeyAction("A", "moveLeft", actionEvent ->
-                sokoban.moveElement(Direction.LEFT));
-        registerKeyAction("S", "moveDown", actionEvent ->
-                sokoban.moveElement(Direction.DOWN));
-        registerKeyAction("D", "moveRight", actionEvent ->
-                sokoban.moveElement(Direction.RIGHT));
-    }
-
     public void loadBoard() {
-        Container cp = getContentPane();
         cols = sokoban.gameBoard.length;
         rows = cols > 0 ? sokoban.gameBoard[0].length : 1;
         squareViews = new SquareView[cols][rows];
 
-        cp.removeAll();
-        cp.setLayout(new GridLayout(cols, rows));
+        removeAll();
+        setLayout(new GridLayout(cols, rows));
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 SquareView newSquareView = new SquareView();
                 squareViews[j][i] = newSquareView;
-                cp.add(newSquareView);
+                add(newSquareView);
             }
         }
     }
 
     public void updateBoard() {
-
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Square[] squareContent = sokoban.gameBoard[j][i];
@@ -125,18 +108,5 @@ public class BoardView extends JInternalFrame implements Observer {
         if(o == sokoban) {
             updateBoard();
         }
-    }
-
-
-    public void registerKeyAction(String key, String actionName, Consumer<ActionEvent> callback) {
-        getInputMap().put(KeyStroke.getKeyStroke(key), actionName);
-        getActionMap().put(actionName, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(actionName);
-                callback.accept(e);
-            }
-        });
-
     }
 }

@@ -12,6 +12,7 @@ public class Sokoban extends Observable {
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
     public ArrayList<Crate> crates;
+    private boolean isDone = false;
 
     /**
      * Construktor, Creates the gameBoard based on a text file
@@ -131,6 +132,22 @@ public class Sokoban extends Observable {
     }
     public boolean moveElement (Direction direction){
         return moveElement(direction, player);
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    // TODO set isDone true when all crates are on goalCrates
+    public void setDone(boolean done) {
+        isDone = done;
+        setChanged();
+        notifyObservers();
+    }
+
+    // TODO implement undo
+    public void undo() {
+
     }
 }
 
