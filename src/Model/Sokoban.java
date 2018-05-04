@@ -7,12 +7,15 @@ import java.util.Observable;
 /**
  * Main logic class
  */
-public class Sokoban extends Observable {
+public class Sokoban extends Observable implements Serializable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
     public ArrayList<Crate> crates;
     private boolean isDone = false;
+    int arrayHeigth;
+    int arrayLenght;
+    String[] inputFromFileArray;
 
     /**
      * Construktor, Creates the gameBoard based on a text file
@@ -33,62 +36,71 @@ public class Sokoban extends Observable {
         }
         int arrayHeight = inputFromFileArray.size();
         int arrayLength = 0;
+        arrayHeigth = inputFromFileArray.size();
 
         for (String s : inputFromFileArray) {
             if (s.length() >= arrayLength) {
                 arrayLength = s.length();
             }
         }
-        gameBoard = new Square[arrayLength][arrayHeight][2];
-        for (int y = 0; y < arrayHeight; y++) {
-            char[] temp = inputFromFileArray.get(y).toCharArray();
+        this.inputFromFileArray=inputFromFileArray.toArray(new String[0]);
+        gameBoard = new Square[arrayLenght][arrayHeigth][2];
+        buildGameBoard();
 
-            for (int x = 0; x < temp.length; x++) {
-                switch (temp[x]) {
-                    case '#': {
-                        gameBoard[x][y][0] = new Wall();
-                        break;
-                    }
-                    case '$': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        gameBoard[x][y][1]=new Crate(x,y);
+    }
 
-                        break;
-                    }
-                    case '.': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        break;
-                    }
-                    /**
-                     * Crate on Goal
-                     */
-                    case '*': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        gameBoard[x][y][1] = new Crate(x,y);
-                        break;
-                    }
-                    /**
-                     * Player on Goal
-                     */
-                    case '+': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
-                        break;
-                    }
-                    case '@': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        player=new Player(x,y);
-                        gameBoard[x][y][1]= player;
-                        break;
-                    }
-                    case ' ': {
-                        gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
-                        break;
-                    }
 
+private void buildGameBoard(){
+    for (int y = 0; y < arrayHeigth; y++) {
+        char[] temp = inputFromFileArray[y].toCharArray();
+
+        for (int x = 0; x < temp.length; x++) {
+            switch (temp[x]) {
+                case '#': {
+                    gameBoard[x][y][0] = new Wall();
+                    break;
                 }
+                case '$': {
+                    gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
+                    gameBoard[x][y][1]=new Crate(x,y);
+
+                    break;
+                }
+                case '.': {
+                    gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                    break;
+                }
+                /**
+                 * Crate on Goal
+                 */
+                case '*': {
+                    gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                    gameBoard[x][y][1] = new Crate(x,y);
+                    break;
+                }
+                /**
+                 * Player on Goal
+                 */
+                case '+': {
+
+                    gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                    break;
+                }
+                case '@': {
+                    gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
+                    player=new Player(x,y);
+                    gameBoard[x][y][1]= player;
+                    break;
+                }
+                case ' ': {
+                    gameBoard[x][y][0] = new Floor(FloorElement.EMPTY);
+                    break;
+                }
+
             }
         }
     }
+}
 
     /**
      * Returns Both Layers of a Game Square
@@ -125,9 +137,12 @@ public class Sokoban extends Observable {
                     notifyObservers();
                     return true;
                 }
+                System.out.println("not wall");
+
             }
 
         }
+        System.out.println("Wall");
         return false;
     }
     public boolean moveElement (Direction direction){
@@ -148,6 +163,12 @@ public class Sokoban extends Observable {
     // TODO implement undo
     public void undo() {
 
+    }
+    /**
+     * Rebuilds board, for exaple when stuck and want to start again
+     */
+    public void rebuildBoard(){
+        buildGameBoard();
     }
 }
 

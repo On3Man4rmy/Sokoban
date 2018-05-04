@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * An unmovable Floor, can either be a goal or empty
  */
-public class Floor extends Square {
+public class Floor extends Square implements Serializable {
     public boolean goal=false;
 
     public Floor(FloorElement floorElement){

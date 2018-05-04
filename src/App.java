@@ -29,7 +29,7 @@ public class App extends JFrame {
 
     public void addChild(JInternalFrame child, int x, int y) {
         child.setLocation(x, y);
-        child.setSize(200, 150);
+        child.setSize(200, 400);
         child.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         desk.add(child);
         child.setVisible(true);
