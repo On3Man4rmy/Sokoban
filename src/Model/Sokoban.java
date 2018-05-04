@@ -124,12 +124,9 @@ public class Sokoban extends Observable {
                     notifyObservers();
                     return true;
                 }
-                System.out.println("not wall");
-
             }
 
         }
-        System.out.println("Wall");
         return false;
     }
 }

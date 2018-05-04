@@ -5,10 +5,6 @@ import Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
@@ -71,18 +67,23 @@ public class BoardView extends JInternalFrame implements Observer {
                     if(content instanceof Floor) {
                         if(((Floor) content).goal) {
                             squareViews[j][i].setBackground(Color.CYAN);
+                            squareViews[j][i].setText(".");
                         } else {
                             squareViews[j][i].setBackground(Color.LIGHT_GRAY);
+                            squareViews[j][i].setText("");
                         }
                     }
                     if(content instanceof Player) {
                         squareViews[j][i].setBackground(Color.RED);
+                        squareViews[j][i].setText("@");
                     }
                     if(content instanceof Wall) {
                         squareViews[j][i].setBackground(Color.DARK_GRAY);
+                        squareViews[j][i].setText("#");
                     }
                     if(content instanceof Crate) {
                         squareViews[j][i].setBackground(Color.GREEN);
+                        squareViews[j][i].setText("$");
                     }
                 }
             }
