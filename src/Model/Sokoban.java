@@ -16,6 +16,7 @@ public class Sokoban extends Observable implements Serializable {
     int arrayHeigth=0;
     int arrayLenght=0;
     String[] inputFromFileArray;
+    int goalCount=0;
 
     /**
      * Construktor, Creates the gameBoard based on a text file
@@ -66,6 +67,7 @@ private void buildGameBoard(){
                 }
                 case '.': {
                     gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
+                    goalCount++;
                     break;
                 }
                 /**
@@ -74,6 +76,7 @@ private void buildGameBoard(){
                 case '*': {
                     gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
                     gameBoard[x][y][1] = new Crate(x,y);
+                    goalCount++;
                     break;
                 }
                 /**
@@ -151,7 +154,6 @@ private void buildGameBoard(){
         return isDone;
     }
 
-    // TODO set isDone true when all crates are on goalCrates
     public void setDone(boolean done) {
         isDone = done;
         setChanged();
@@ -167,6 +169,10 @@ private void buildGameBoard(){
      */
     public void rebuildBoard(){
         buildGameBoard();
+    }
+
+    public int getGoalCount() {
+        return goalCount;
     }
 }
 
