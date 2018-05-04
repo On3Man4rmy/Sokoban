@@ -1,10 +1,13 @@
 package View;
 
 import Model.*;
+import Resources.Colors;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
@@ -24,20 +27,47 @@ public class BoardView extends JInternalFrame implements Observer {
         loadBoard();
         updateBoard();
         registerKeyEvents();
+        registerMouseEvents();
 
         setVisible(true);
     }
 
+    private void registerMouseEvents() {
+        getContentPane().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                double x = e.getX();
+                double y = e.getY();
+                double width = getContentPane().getWidth();
+                double height = getContentPane().getHeight();
+                double ratio = height / width;
+
+                // Is mouseclick in top left half
+                boolean topLeftHalf = y < (width - x) * ratio;
+                boolean bottomLeftHalf = y > x * ratio;
+
+                if(topLeftHalf && bottomLeftHalf) {
+                    sokoban.moveElement(Direction.LEFT);
+                } else if(topLeftHalf) {
+                    sokoban.moveElement(Direction.UP);
+                } else if(bottomLeftHalf) {
+                    sokoban.moveElement(Direction.DOWN);
+                } else {
+                    sokoban.moveElement(Direction.RIGHT);
+                }
+            }
+        });
+    }
+
     public void registerKeyEvents() {
-        registerKeyAction("W", "moveUp", actionEvent -> {
-                    sokoban.moveElement(Direction.UP, sokoban.player);
-            });
+        registerKeyAction("W", "moveUp", actionEvent ->
+                sokoban.moveElement(Direction.UP));
         registerKeyAction("A", "moveLeft", actionEvent ->
-                sokoban.moveElement(Direction.LEFT, sokoban.player));
+                sokoban.moveElement(Direction.LEFT));
         registerKeyAction("S", "moveDown", actionEvent ->
-                sokoban.moveElement(Direction.DOWN, sokoban.player));
+                sokoban.moveElement(Direction.DOWN));
         registerKeyAction("D", "moveRight", actionEvent ->
-                sokoban.moveElement(Direction.RIGHT, sokoban.player));
+                sokoban.moveElement(Direction.RIGHT));
     }
 
     public void loadBoard() {
@@ -66,23 +96,23 @@ public class BoardView extends JInternalFrame implements Observer {
                 for(Square content : squareContent) {
                     if(content instanceof Floor) {
                         if(((Floor) content).goal) {
-                            squareViews[j][i].setBackground(Color.CYAN);
+                            squareViews[j][i].setBackground(Colors.WILD_VIOLET_PETAL.getColor());
                             squareViews[j][i].setText(".");
                         } else {
-                            squareViews[j][i].setBackground(Color.LIGHT_GRAY);
+                            squareViews[j][i].setBackground(Colors.PIED_PIPER_BUTTERLAND.getColor());
                             squareViews[j][i].setText("");
                         }
                     }
                     if(content instanceof Player) {
-                        squareViews[j][i].setBackground(Color.RED);
+                        squareViews[j][i].setBackground(Colors.CANARINHO.getColor());
                         squareViews[j][i].setText("@");
                     }
                     if(content instanceof Wall) {
-                        squareViews[j][i].setBackground(Color.DARK_GRAY);
+                        squareViews[j][i].setBackground(Colors.SURRENDER_V2.getColor());
                         squareViews[j][i].setText("#");
                     }
                     if(content instanceof Crate) {
-                        squareViews[j][i].setBackground(Color.GREEN);
+                        squareViews[j][i].setBackground(Colors.A_SWING_TRUMPET_V2.getColor());
                         squareViews[j][i].setText("$");
                     }
                 }

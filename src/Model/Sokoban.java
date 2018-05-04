@@ -129,6 +129,9 @@ public class Sokoban extends Observable {
         }
         return false;
     }
+    public boolean moveElement (Direction direction){
+        return moveElement(direction, player);
+    }
 }
 
 
