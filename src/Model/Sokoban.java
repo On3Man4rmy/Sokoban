@@ -30,16 +30,16 @@ public class Sokoban extends Observable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int arrayHeigth = inputFromFileArray.size();
-        int arrayLenght = 0;
+        int arrayHeight = inputFromFileArray.size();
+        int arrayLength = 0;
 
         for (String s : inputFromFileArray) {
-            if (s.length() >= arrayLenght) {
-                arrayLenght = s.length();
+            if (s.length() >= arrayLength) {
+                arrayLength = s.length();
             }
         }
-        gameBoard = new Square[arrayLenght][arrayHeigth][2];
-        for (int y = 0; y < arrayHeigth; y++) {
+        gameBoard = new Square[arrayLength][arrayHeight][2];
+        for (int y = 0; y < arrayHeight; y++) {
             char[] temp = inputFromFileArray.get(y).toCharArray();
 
             for (int x = 0; x < temp.length; x++) {
@@ -70,7 +70,6 @@ public class Sokoban extends Observable {
                      * Player on Goal
                      */
                     case '+': {
-
                         gameBoard[x][y][0] = new Floor(FloorElement.GOAL);
                         break;
                     }
@@ -133,8 +132,6 @@ public class Sokoban extends Observable {
         System.out.println("Wall");
         return false;
     }
-
-
 }
 
 

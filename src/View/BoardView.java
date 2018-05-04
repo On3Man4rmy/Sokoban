@@ -68,20 +68,20 @@ public class BoardView extends JInternalFrame implements Observer {
             for (int j = 0; j < cols; j++) {
                 Square[] squareContent = sokoban.gameBoard[j][i];
                 for(Square content : squareContent) {
-                    if(sokoban.gameBoard[j][i][0] instanceof Floor) {
-                        if(((Floor) sokoban.gameBoard[j][i][0]).goal) {
+                    if(content instanceof Floor) {
+                        if(((Floor) content).goal) {
                             squareViews[j][i].setBackground(Color.CYAN);
                         } else {
                             squareViews[j][i].setBackground(Color.LIGHT_GRAY);
                         }
                     }
-                    if(sokoban.gameBoard[j][i][1] instanceof Player) {
+                    if(content instanceof Player) {
                         squareViews[j][i].setBackground(Color.RED);
                     }
-                    if(sokoban.gameBoard[j][i][0] instanceof Wall) {
+                    if(content instanceof Wall) {
                         squareViews[j][i].setBackground(Color.DARK_GRAY);
                     }
-                    if(sokoban.gameBoard[j][i][1] instanceof Crate) {
+                    if(content instanceof Crate) {
                         squareViews[j][i].setBackground(Color.GREEN);
                     }
                 }
