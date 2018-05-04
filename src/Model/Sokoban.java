@@ -13,8 +13,8 @@ public class Sokoban extends Observable implements Serializable {
     public Player player;
     public ArrayList<Crate> crates;
     private boolean isDone = false;
-    int arrayHeigth;
-    int arrayLenght;
+    int arrayHeigth=0;
+    int arrayLenght=0;
     String[] inputFromFileArray;
 
     /**
@@ -34,13 +34,11 @@ public class Sokoban extends Observable implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int arrayHeight = inputFromFileArray.size();
-        int arrayLength = 0;
         arrayHeigth = inputFromFileArray.size();
 
         for (String s : inputFromFileArray) {
-            if (s.length() >= arrayLength) {
-                arrayLength = s.length();
+            if (s.length() >= arrayLenght) {
+                arrayLenght = s.length();
             }
         }
         this.inputFromFileArray=inputFromFileArray.toArray(new String[0]);

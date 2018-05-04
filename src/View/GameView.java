@@ -2,14 +2,12 @@ package View;
 
 import Model.Direction;
 import Model.Sokoban;
-import javafx.scene.input.KeyCode;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
