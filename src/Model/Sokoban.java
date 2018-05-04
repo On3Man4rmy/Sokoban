@@ -17,6 +17,8 @@ public class Sokoban extends Observable implements Serializable {
     int arrayLenght=0;
     String[] inputFromFileArray;
     int goalCount=0;
+    private Square[][] movableObjectsBackup;
+    private Position[][] positionBackup;
 
     /**
      * Construktor, Creates the gameBoard based on a text file
@@ -44,6 +46,7 @@ public class Sokoban extends Observable implements Serializable {
         }
         this.inputFromFileArray=inputFromFileArray.toArray(new String[0]);
         gameBoard = new Square[arrayLenght][arrayHeigth][2];
+        movableObjectsBackup=new Square[arrayLenght][arrayHeigth];
         buildGameBoard();
 
     }
@@ -122,7 +125,20 @@ private void buildGameBoard(){
      */
     public boolean moveElement (Direction direction, MovableElement element){
         System.out.println("Player Postion: " + player.position);
+        /**
+         * Creates Bacup of the positions of Players and crates before an update, for undo option
+         */
 
+        positionBackup=new Position[arrayLenght][arrayHeigth];  //Created new everytime to delete old one
+        for(int x=0;x<arrayLenght;x++){
+            for(int y=0;y<arrayHeigth;y++){
+                movableObjectsBackup[x][y]=gameBoard[x][y][1];
+                if(gameBoard[x][y][1]!=null) {
+                    MovableElement temp=(MovableElement)gameBoard[x][y][1];
+                    positionBackup[x][y] = new Position(temp.position);
+                }
+            }
+        }
         if (element==null) return false;
         Position position=Position.movePosition(direction, element.position);
         System.out.println(element.position);
@@ -160,8 +176,19 @@ private void buildGameBoard(){
         notifyObservers();
     }
 
-    // TODO implement undo
     public void undo() {
+        for(int x=0;x<arrayLenght;x++){
+            for(int y=0;y<arrayHeigth;y++){
+                gameBoard[x][y][1]=movableObjectsBackup[x][y];
+                if(movableObjectsBackup[x][y]!=null){
+                    MovableElement temp=(MovableElement)gameBoard[x][y][1];
+                    temp.position=positionBackup[x][y];
+                }
+            }
+        }
+        setChanged();
+        notifyObservers();
+
 
     }
     /**

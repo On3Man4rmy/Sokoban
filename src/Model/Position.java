@@ -14,20 +14,13 @@ public class Position implements Serializable {
         this.yPos = yPos;
     }
 
-    public int up() {
-        return yPos - 1;
-    }
-
-    public int down() {
-        return yPos + 1;
-    }
-
-    public int right() {
-        return xPos + 1;
-    }
-
-    public int left() {
-        return xPos - 1;
+    /**
+     * Copy constructor
+     * @param position  Position object that is copied
+     */
+    public Position(Position position){
+        xPos=position.xPos;
+        yPos=position.yPos;
     }
 
     @Override
