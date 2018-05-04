@@ -7,12 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
@@ -75,6 +75,11 @@ public class BoardView extends JPanel implements Observer {
         registerMouseEvents();
 
         setVisible(true);
+    }
+
+    //TODO
+    private void setJMenuBar(JMenuBar mb) {
+
     }
 
     private void registerMouseEvents() {

@@ -59,9 +59,9 @@ public class GameView extends JInternalFrame implements Observer {
                 sokoban.moveElement(Direction.DOWN));
         registerKeyAction("D", "moveRight", actionEvent ->
                 sokoban.moveElement(Direction.RIGHT));
-        // only there for debugging purposes
+        // TODO only there for debugging purposes
         registerKeyAction("C", "changeDone", actionEvent ->
-                sokoban.setDone(!sokoban.isDone()));// only there for debugging purposes
+                sokoban.setDone(!sokoban.isDone()));
         registerKeyAction(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK, "undo", actionEvent ->
                 sokoban.undo());
     }
