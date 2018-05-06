@@ -18,7 +18,7 @@ import java.util.Observer;
 import java.util.function.Consumer;
 
 public class BoardView extends JPanel implements Observer {
-    private Sokoban sokoban;
+    public Sokoban sokoban;
     private SquareView[][] squareViews;
     int rows;
     int cols;
@@ -34,10 +34,7 @@ public class BoardView extends JPanel implements Observer {
         setVisible(true);
     }
 
-    //TODO
-    private void setJMenuBar(JMenuBar mb) {
 
-    }
 
     private void registerMouseEvents() {
         addMouseListener(new MouseAdapter() {
@@ -110,7 +107,7 @@ public class BoardView extends JPanel implements Observer {
                         squareViews[j][i].setBackground(Colors.A_SWING_TRUMPET_V2.getColor());
                         squareViews[j][i].setText("$");
                         /**
-                         * checks if Crate is on Gal, if yes, changes backgroundcolor and icon to indicate this
+                         * checks if Crate is on Goal, if yes, changes backgroundcolor and icon to indicate this
                          * also increases goal count
                          */
                         if (sokoban.gameBoard[j][i][0] instanceof Floor) {

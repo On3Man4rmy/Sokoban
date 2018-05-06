@@ -23,6 +23,7 @@ public class GameView extends JInternalFrame implements Observer {
     MenuView menuView;
     JMenu[] menus={new JMenu("Reset"),new JMenu("Save/Load")};
     JMenuItem[] items={new JMenuItem("Restart"), new JMenuItem("Save"),new JMenuItem("Load")};
+    Container contentPane = getContentPane();
 
 
     public GameView(Sokoban sokoban) {
@@ -30,7 +31,6 @@ public class GameView extends JInternalFrame implements Observer {
         setIconifiable (true); setMaximizable (true);
         registerKeyEvents();
 
-        Container contentPane = getContentPane();
         LayoutManager overlay = new OverlayLayout(contentPane);
         contentPane.setLayout(overlay);
         initMenuBar();
@@ -111,10 +111,10 @@ public class GameView extends JInternalFrame implements Observer {
             items[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(k==0){
+                    if(k==1){
                         saveGame();
                     }
-                    if(k==1){
+                    if(k==2){
                         loadGame();
                     }
 
@@ -130,6 +130,10 @@ public class GameView extends JInternalFrame implements Observer {
         setJMenuBar(mb);
 
     }
+
+    /**
+     * Saves the game
+     */
     public void saveGame(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         Date date = new Date();
@@ -144,6 +148,11 @@ public class GameView extends JInternalFrame implements Observer {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Loads the game from Save
+     */
+    //TODO: fix issue with loading game, where older version of palyer and crate are show, but dissapera when moved into
     public void loadGame(){
         JFileChooser c = new JFileChooser (new File("./"));
         File selectedFile=null;
@@ -156,8 +165,14 @@ public class GameView extends JInternalFrame implements Observer {
                 FileInputStream fs = new FileInputStream (selectedFile); // FIS oeffnen
                 ObjectInputStream is = new ObjectInputStream(fs); // OIS erzeugen
                 sokoban=(Sokoban)is.readObject();
+                this.sokoban.addObserver(this);
+                boardView = new BoardView(sokoban);
+                contentPane.add(boardView);
+                setVisible(false);
+                setVisible(true);
+
+
                 is.close();
-                boardView.loadBoard();
             } catch (ClassNotFoundException e) { // wenn Klasse nicht gefunden
                 System.err.println (e);
             } catch (IOException e) { // wenn IO-Fehler aufgetreten

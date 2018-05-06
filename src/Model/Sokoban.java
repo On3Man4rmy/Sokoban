@@ -11,7 +11,6 @@ public class Sokoban extends Observable implements Serializable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
-    public ArrayList<Crate> crates;
     private boolean isDone = false;
     int arrayHeigth=0;
     int arrayLenght=0;
