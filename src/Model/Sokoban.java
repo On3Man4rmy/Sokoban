@@ -45,14 +45,13 @@ public class Sokoban extends Observable implements Serializable {
             }
         }
         this.inputFromFileArray=inputFromFileArray.toArray(new String[0]);
-        gameBoard = new Square[arrayLenght][arrayHeigth][2];
-        movableObjectsBackup=new Square[arrayLenght][arrayHeigth];
         buildGameBoard();
 
     }
 
 
 private void buildGameBoard(){
+    gameBoard = new Square[arrayLenght][arrayHeigth][2];
     for (int y = 0; y < arrayHeigth; y++) {
         char[] temp = inputFromFileArray[y].toCharArray();
 
@@ -128,7 +127,7 @@ private void buildGameBoard(){
         /**
          * Creates Bacup of the positions of Players and crates before an update, for undo option
          */
-
+        movableObjectsBackup=new Square[arrayLenght][arrayHeigth];
         positionBackup=new Position[arrayLenght][arrayHeigth];  //Created new everytime to delete old one
         for(int x=0;x<arrayLenght;x++){
             for(int y=0;y<arrayHeigth;y++){
@@ -196,6 +195,9 @@ private void buildGameBoard(){
      */
     public void rebuildBoard(){
         buildGameBoard();
+        setChanged();
+        notifyObservers();
+
     }
 
     public int getGoalCount() {

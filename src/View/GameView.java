@@ -22,7 +22,7 @@ public class GameView extends JInternalFrame implements Observer {
     BoardView boardView;
     MenuView menuView;
     JMenu[] menus={new JMenu("Reset"),new JMenu("Save/Load")};
-    JMenuItem[] items={new JMenuItem("Save"),new JMenuItem("Load")};
+    JMenuItem[] items={new JMenuItem("Restart"), new JMenuItem("Save"),new JMenuItem("Load")};
 
 
     public GameView(Sokoban sokoban) {
@@ -96,14 +96,16 @@ public class GameView extends JInternalFrame implements Observer {
     public void initMenuBar(){
         JMenuBar mb = new JMenuBar();
         //TODO: make this actually work
-        menus[0].addActionListener(new ActionListener() {
+        menus[0].add(items[0]);
+
+        items[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sokoban.rebuildBoard();
             }
         });
 
-        for(int i=0;i<items.length;i++){
+        for(int i=1;i<items.length;i++){
             menus[1].add(items[i]);
             final int k=i;
             items[i].addActionListener(new ActionListener() {
