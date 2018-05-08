@@ -21,20 +21,21 @@ public class GameView extends JInternalFrame implements Observer {
     Sokoban sokoban;
     BoardView boardView;
     MenuView menuView;
-    JMenu[] menus={new JMenu("Reset"),new JMenu("Save/Load")};
-    JMenuItem[] items={new JMenuItem("Restart"), new JMenuItem("Save"),new JMenuItem("Load")};
+    JMenu[] menus = {new JMenu("Options")};
+    JMenuItem[] items = {new JMenuItem("Restart"), new JMenuItem("Save"), new JMenuItem("Load")};
     Container contentPane = getContentPane();
 
 
     public GameView(Sokoban sokoban) {
-        super ("Game", true, true);
-        setIconifiable (true); setMaximizable (true);
+        super("Game", true, true);
+        setIconifiable(true);
+        setMaximizable(true);
         registerKeyEvents();
 
         LayoutManager overlay = new OverlayLayout(contentPane);
         contentPane.setLayout(overlay);
         initMenuBar();
-        this.sokoban     = sokoban;
+        this.sokoban = sokoban;
         this.sokoban.addObserver(this);
 
         boardView = new BoardView(sokoban);
@@ -50,7 +51,7 @@ public class GameView extends JInternalFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o == sokoban) {
+        if (o == sokoban) {
             menuView.setVisible(sokoban.isDone());
             boardView.setVisible(!sokoban.isDone());
         }
@@ -93,28 +94,23 @@ public class GameView extends JInternalFrame implements Observer {
             }
         });
     }
-    public void initMenuBar(){
+
+    public void initMenuBar() {
         JMenuBar mb = new JMenuBar();
-        //TODO: make this actually work
-        menus[0].add(items[0]);
 
-        items[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sokoban.rebuildBoard();
-            }
-        });
-
-        for(int i=1;i<items.length;i++){
-            menus[1].add(items[i]);
-            final int k=i;
+        for (int i = 0; i < items.length; i++) {
+            menus[0].add(items[i]);
+            final int k = i;
             items[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(k==1){
+                    if (k == 0) {
+                        sokoban.rebuildBoard();
+                    }
+                    if (k == 1) {
                         saveGame();
                     }
-                    if(k==2){
+                    if (k == 2) {
                         loadGame();
                     }
 
@@ -123,9 +119,7 @@ public class GameView extends JInternalFrame implements Observer {
         }
 
 
-
         mb.add(menus[0]);
-        mb.add(menus[1]);
 
         setJMenuBar(mb);
 
@@ -134,14 +128,14 @@ public class GameView extends JInternalFrame implements Observer {
     /**
      * Saves the game
      */
-    public void saveGame(){
+    public void saveGame() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         Date date = new Date();
-        String filename="Sokoban"+dateFormat.format(date)+".ser";
+        String filename = "Sokoban" + dateFormat.format(date) + ".ser";
 
         try {
-            FileOutputStream fs = new FileOutputStream (filename); // FOS oeffnen
-            ObjectOutputStream os = new ObjectOutputStream (fs);
+            FileOutputStream fs = new FileOutputStream(filename); // FOS oeffnen
+            ObjectOutputStream os = new ObjectOutputStream(fs);
             os.writeObject(sokoban);
             os.close();
         } catch (IOException e) {
@@ -153,18 +147,18 @@ public class GameView extends JInternalFrame implements Observer {
      * Loads the game from Save
      */
     //TODO: fix issue with loading game, where older version of palyer and crate are show, but dissapera when moved into
-    public void loadGame(){
-        JFileChooser c = new JFileChooser (new File("./"));
-        File selectedFile=null;
+    public void loadGame() {
+        JFileChooser c = new JFileChooser(new File("./"));
+        File selectedFile = null;
         int returnValue = c.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             selectedFile = c.getSelectedFile();
         }
-        if(selectedFile!=null){
+        if (selectedFile != null) {
             try {
-                FileInputStream fs = new FileInputStream (selectedFile); // FIS oeffnen
+                FileInputStream fs = new FileInputStream(selectedFile); // FIS oeffnen
                 ObjectInputStream is = new ObjectInputStream(fs); // OIS erzeugen
-                sokoban=(Sokoban)is.readObject();
+                sokoban = (Sokoban) is.readObject();
                 this.sokoban.addObserver(this);
                 boardView = new BoardView(sokoban);
                 contentPane.add(boardView);
@@ -174,9 +168,9 @@ public class GameView extends JInternalFrame implements Observer {
 
                 is.close();
             } catch (ClassNotFoundException e) { // wenn Klasse nicht gefunden
-                System.err.println (e);
+                System.err.println(e);
             } catch (IOException e) { // wenn IO-Fehler aufgetreten
-                System.err.println (e);
+                System.err.println(e);
             }
         }
     }
