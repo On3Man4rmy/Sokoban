@@ -11,7 +11,7 @@ public class Sokoban extends Observable implements Serializable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
-    private boolean isDone = false;
+    private boolean isDone = false; //checks if the game is finished
     int arrayHeight =0;
     int arrayLength =0;
     String[] inputFromFileArray;
@@ -22,6 +22,7 @@ public class Sokoban extends Observable implements Serializable {
     /**
      * Construktor, Creates the gameBoard based on a text file
      * @param file  text File that contains the Game field
+     * @param level The level of the version, which should be loaded from the file
      */
     public Sokoban(File file, int level) {
         ArrayList<String> inputFromFileArray = new ArrayList<>();
@@ -33,6 +34,7 @@ public class Sokoban extends Observable implements Serializable {
 
             br = new BufferedReader(new FileReader(file));
             while ((line = br.readLine()) != null) {
+                //Only saves the correct Level
                 if(line.equals("Level "+level)) {
                     correctLevel=true;
                 }
@@ -49,13 +51,20 @@ public class Sokoban extends Observable implements Serializable {
         }
 
 
+        /**
+         * removes the first two and last two lines (Level, name and two empty lines)
+         */
         inputFromFileArray.remove(0);
         inputFromFileArray.remove(0);
+        inputFromFileArray.remove(inputFromFileArray.size()-1);
+        inputFromFileArray.remove(inputFromFileArray.size()-1);
+
         arrayHeight = inputFromFileArray.size();
 
+        /**
+         * finds the longest string, to get max lenght
+         */
         for (String s : inputFromFileArray) {
-            System.out.println(s);
-
             if (s.length() >= arrayLength) {
                 arrayLength = s.length();
             }
@@ -65,14 +74,15 @@ public class Sokoban extends Observable implements Serializable {
 
     }
 
-
-private void buildGameBoard(){
+    /**
+     * Builds the gameboard, goes through the String[] and builds the gameboard based on that
+     */
+    private void buildGameBoard(){
     gameBoard = new Square[arrayLength][arrayHeight][2];
     for (int y = 0; y < arrayHeight; y++) {
         char[] temp = inputFromFileArray[y].toCharArray();
 
         for (int x = 0; x < temp.length; x++) {
-            System.out.print(temp[x]);
             switch (temp[x]) {
                 case '#': {
                     gameBoard[x][y][0] = new Wall();
@@ -119,7 +129,6 @@ private void buildGameBoard(){
 
             }
         }
-        System.out.println();
     }
 }
 
@@ -143,7 +152,7 @@ private void buildGameBoard(){
     public boolean moveElement (Direction direction, MovableElement element){
         System.out.println("Player Postion: " + player.position);
         /**
-         * Creates Bacup of the positions of Players and crates before an update, for undo option
+         * Creates BacKup of the positions of Players and crates before an update, for undo option
          */
         movableObjectsBackup=new Square[arrayLength][arrayHeight];
         positionBackup=new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one

@@ -10,9 +10,8 @@ public class App extends JFrame {
     private JDesktopPane desk;
     public static void main(String[] args) {
         App app = new App();
-        Sokoban sokoban = new Sokoban(new File("src/Resources/minicosmos.txt"),40);
+        Sokoban sokoban = new Sokoban(new File("src/Resources/minicosmos.txt"),1);
         GameView gameView = new GameView(sokoban);
-        BoardView boardView = new BoardView(sokoban);
         app.addChild(gameView, 0, 0);
     }
 
