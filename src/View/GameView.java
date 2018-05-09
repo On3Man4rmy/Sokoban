@@ -69,6 +69,10 @@ public class GameView extends JInternalFrame implements Observer {
         // TODO only there for debugging purposes
         registerKeyAction("C", "changeDone", actionEvent ->
                 sokoban.setDone(!sokoban.isDone()));
+        registerKeyAction(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK, "save", actionEvent ->
+                saveGame());
+        registerKeyAction(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK, "load", actionEvent ->
+                loadGame());
         registerKeyAction(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK, "undo", actionEvent ->
                 sokoban.undo());
     }
@@ -158,8 +162,11 @@ public class GameView extends JInternalFrame implements Observer {
             try {
                 FileInputStream fs = new FileInputStream(selectedFile); // FIS oeffnen
                 ObjectInputStream is = new ObjectInputStream(fs); // OIS erzeugen
-                sokoban = (Sokoban) is.readObject();
-                this.sokoban.addObserver(this);
+                Sokoban newSokoban = (Sokoban) is.readObject();
+                newSokoban.addObserver(this);
+                sokoban.deleteObserver(this);
+                sokoban = newSokoban;
+                contentPane.removeAll();
                 boardView = new BoardView(sokoban);
                 contentPane.add(boardView);
                 setVisible(false);

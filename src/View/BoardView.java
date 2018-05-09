@@ -20,6 +20,7 @@ import java.util.function.Consumer;
 public class BoardView extends JPanel implements Observer {
     public Sokoban sokoban;
     private SquareView[][] squareViews;
+
     int rows;
     int cols;
 
