@@ -73,6 +73,8 @@ public class GameView extends JInternalFrame implements Observer {
                 saveGame());
         registerKeyAction(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK, "load", actionEvent ->
                 loadGame());
+        registerKeyAction(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK, "restart", actionEvent ->
+                sokoban.rebuildBoard());
         registerKeyAction(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK, "undo", actionEvent ->
                 sokoban.undo());
     }

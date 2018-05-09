@@ -66,12 +66,12 @@ public class BoardView extends JPanel implements Observer {
 
     public void loadBoard() {
         cols = sokoban.getArrayLength();
-        rows = sokoban.getArrayLength();
+        rows = sokoban.getArrayHeight();
 
         squareViews = new SquareView[cols][rows];
 
         removeAll();
-        setLayout(new GridLayout(cols, rows));
+        setLayout(new GridLayout(rows, cols));
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -124,7 +124,6 @@ public class BoardView extends JPanel implements Observer {
                         }
                     }
 
-                    squareViews[j][i].setText(i + ", " + j );
                 }
             }
             System.out.println();
