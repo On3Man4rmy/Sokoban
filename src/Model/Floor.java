@@ -16,4 +16,9 @@ public class Floor extends Square implements Serializable {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Floor";
+    }
 }

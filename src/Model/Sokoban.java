@@ -2,6 +2,7 @@ package Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 
 /**
@@ -23,22 +24,39 @@ public class Sokoban extends Observable implements Serializable {
      * Construktor, Creates the gameBoard based on a text file
      * @param file  text File that contains the Game field
      */
-    public Sokoban(File file) {
+    public Sokoban(File file, int level) {
         ArrayList<String> inputFromFileArray = new ArrayList<>();
         BufferedReader br;
         String line;
 
         try {
+            boolean correctLevel=false;
+
             br = new BufferedReader(new FileReader(file));
             while ((line = br.readLine()) != null) {
-                inputFromFileArray.add(line);
+                if(line.equals("Level "+level)) {
+                    correctLevel=true;
+                }
+                if(correctLevel){
+                    if(line.equals("Level "+(level+1))){
+                        correctLevel=false;
+                    }
+                    inputFromFileArray.add(line);
+
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        inputFromFileArray.remove(0);
+        inputFromFileArray.remove(0);
         arrayHeigth = inputFromFileArray.size();
 
         for (String s : inputFromFileArray) {
+            System.out.println(s);
+
             if (s.length() >= arrayLenght) {
                 arrayLenght = s.length();
             }
@@ -55,6 +73,7 @@ private void buildGameBoard(){
         char[] temp = inputFromFileArray[y].toCharArray();
 
         for (int x = 0; x < temp.length; x++) {
+            System.out.print(temp[x]);
             switch (temp[x]) {
                 case '#': {
                     gameBoard[x][y][0] = new Wall();
@@ -101,6 +120,7 @@ private void buildGameBoard(){
 
             }
         }
+        System.out.println();
     }
 }
 

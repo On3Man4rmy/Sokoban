@@ -85,6 +85,7 @@ public class BoardView extends JPanel implements Observer {
         int cratesOnGoalCount = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
+                System.out.print(sokoban.gameBoard[j][i][0]);
                 Square[] squareContent = sokoban.gameBoard[j][i];
                 for (Square content : squareContent) {
                     if (content instanceof Floor) {
@@ -124,6 +125,7 @@ public class BoardView extends JPanel implements Observer {
                     }
                 }
             }
+            System.out.println();
         }
         if (!sokoban.isDone()) {
             if (cratesOnGoalCount == sokoban.getGoalCount()) {
