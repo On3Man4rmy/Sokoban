@@ -65,8 +65,9 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void loadBoard() {
-        cols = sokoban.gameBoard.length;
-        rows = cols > 0 ? sokoban.gameBoard[0].length : 1;
+        cols = sokoban.getArrayLength();
+        rows = sokoban.getArrayLength();
+
         squareViews = new SquareView[cols][rows];
 
         removeAll();
@@ -121,8 +122,9 @@ public class BoardView extends JPanel implements Observer {
 
                             }
                         }
-
                     }
+
+                    squareViews[j][i].setText(i + ", " + j );
                 }
             }
             System.out.println();

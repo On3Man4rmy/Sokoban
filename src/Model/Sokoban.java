@@ -2,7 +2,6 @@ package Model;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
 
 /**
@@ -13,8 +12,8 @@ public class Sokoban extends Observable implements Serializable {
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
     private boolean isDone = false;
-    int arrayHeigth=0;
-    int arrayLenght=0;
+    int arrayHeight =0;
+    int arrayLength =0;
     String[] inputFromFileArray;
     int goalCount=0;
     private Square[][] movableObjectsBackup;
@@ -52,13 +51,13 @@ public class Sokoban extends Observable implements Serializable {
 
         inputFromFileArray.remove(0);
         inputFromFileArray.remove(0);
-        arrayHeigth = inputFromFileArray.size();
+        arrayHeight = inputFromFileArray.size();
 
         for (String s : inputFromFileArray) {
             System.out.println(s);
 
-            if (s.length() >= arrayLenght) {
-                arrayLenght = s.length();
+            if (s.length() >= arrayLength) {
+                arrayLength = s.length();
             }
         }
         this.inputFromFileArray=inputFromFileArray.toArray(new String[0]);
@@ -68,8 +67,8 @@ public class Sokoban extends Observable implements Serializable {
 
 
 private void buildGameBoard(){
-    gameBoard = new Square[arrayLenght][arrayHeigth][2];
-    for (int y = 0; y < arrayHeigth; y++) {
+    gameBoard = new Square[arrayLength][arrayHeight][2];
+    for (int y = 0; y < arrayHeight; y++) {
         char[] temp = inputFromFileArray[y].toCharArray();
 
         for (int x = 0; x < temp.length; x++) {
@@ -146,10 +145,10 @@ private void buildGameBoard(){
         /**
          * Creates Bacup of the positions of Players and crates before an update, for undo option
          */
-        movableObjectsBackup=new Square[arrayLenght][arrayHeigth];
-        positionBackup=new Position[arrayLenght][arrayHeigth];  //Created new everytime to delete old one
-        for(int x=0;x<arrayLenght;x++){
-            for(int y=0;y<arrayHeigth;y++){
+        movableObjectsBackup=new Square[arrayLength][arrayHeight];
+        positionBackup=new Position[arrayLength][arrayHeight];  //Created new everytime to delete old one
+        for(int x = 0; x< arrayLength; x++){
+            for(int y = 0; y< arrayHeight; y++){
                 movableObjectsBackup[x][y]=gameBoard[x][y][1];
                 if(gameBoard[x][y][1]!=null) {
                     MovableElement temp=(MovableElement)gameBoard[x][y][1];
@@ -195,8 +194,8 @@ private void buildGameBoard(){
     }
 
     public void undo() {
-        for(int x=0;x<arrayLenght;x++){
-            for(int y=0;y<arrayHeigth;y++){
+        for(int x = 0; x< arrayLength; x++){
+            for(int y = 0; y< arrayHeight; y++){
                 gameBoard[x][y][1]=movableObjectsBackup[x][y];
                 if(movableObjectsBackup[x][y]!=null){
                     MovableElement temp=(MovableElement)gameBoard[x][y][1];
@@ -221,6 +220,13 @@ private void buildGameBoard(){
 
     public int getGoalCount() {
         return goalCount;
+    }
+
+    public int getArrayHeight() {
+        return arrayHeight;
+    }
+    public int getArrayLength() {
+        return arrayLength;
     }
 }
 
