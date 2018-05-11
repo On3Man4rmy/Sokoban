@@ -6,13 +6,9 @@ import Resources.Colors;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.Consumer;
@@ -20,6 +16,31 @@ import java.util.function.Consumer;
 public class BoardView extends JPanel implements Observer {
     public Sokoban sokoban;
     private SquareView[][] squareViews;
+    private boolean listenMouseEvents;
+    private MouseListener mouseListener = new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            double x = e.getX();
+            double y = e.getY();
+            double width = getWidth();
+            double height = getHeight();
+            double ratio = height / width;
+
+            // Is mouseclick in top left half
+            boolean topLeftHalf = y < (width - x) * ratio;
+            boolean bottomLeftHalf = y > x * ratio;
+
+            if(topLeftHalf && bottomLeftHalf) {
+                sokoban.moveElement(Direction.LEFT);
+            } else if(topLeftHalf) {
+                sokoban.moveElement(Direction.UP);
+            } else if(bottomLeftHalf) {
+                sokoban.moveElement(Direction.DOWN);
+            } else {
+                sokoban.moveElement(Direction.RIGHT);
+            }
+        }
+    };
 
     int rows;
     int cols;
@@ -30,38 +51,23 @@ public class BoardView extends JPanel implements Observer {
         this.sokoban.addObserver(this);
         loadBoard();
         updateBoard();
-        registerMouseEvents();
+        enableMouseListener();
 
         setVisible(true);
     }
 
+    public void enableMouseListener() {
+        if(!listenMouseEvents) {
+            addMouseListener(mouseListener);
+            listenMouseEvents = !listenMouseEvents;
+        }
+    }
 
-
-    private void registerMouseEvents() {
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                double x = e.getX();
-                double y = e.getY();
-                double width = getWidth();
-                double height = getHeight();
-                double ratio = height / width;
-
-                // Is mouseclick in top left half
-                boolean topLeftHalf = y < (width - x) * ratio;
-                boolean bottomLeftHalf = y > x * ratio;
-
-                if(topLeftHalf && bottomLeftHalf) {
-                    sokoban.moveElement(Direction.LEFT);
-                } else if(topLeftHalf) {
-                    sokoban.moveElement(Direction.UP);
-                } else if(bottomLeftHalf) {
-                    sokoban.moveElement(Direction.DOWN);
-                } else {
-                    sokoban.moveElement(Direction.RIGHT);
-                }
-            }
-        });
+    public void disableMouseListener() {
+        if(listenMouseEvents) {
+            removeMouseListener(mouseListener);
+            listenMouseEvents = !listenMouseEvents;
+        }
     }
 
     public void loadBoard() {
@@ -150,7 +156,10 @@ public class BoardView extends JPanel implements Observer {
                 callback.accept(e);
             }
         });
-
     }
 
+    @Override
+    public void setBackground(Color bg) {
+
+    }
 }

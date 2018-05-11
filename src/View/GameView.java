@@ -119,7 +119,6 @@ public class GameView extends JInternalFrame implements Observer {
                     if (k == 2) {
                         loadGame();
                     }
-
                 }
             });
         }
@@ -128,7 +127,6 @@ public class GameView extends JInternalFrame implements Observer {
         mb.add(menus[0]);
 
         setJMenuBar(mb);
-
     }
 
     /**

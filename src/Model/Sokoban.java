@@ -7,7 +7,7 @@ import java.util.Observable;
 /**
  * Main logic class
  */
-public class Sokoban extends Observable implements Serializable {
+public class Sokoban extends Observable implements Serializable, Cloneable {
 
     public Square[][][] gameBoard;  //Array of Game Elements. Third Dimension for Players and Crates on Fields
     public Player player;
@@ -18,6 +18,8 @@ public class Sokoban extends Observable implements Serializable {
     int goalCount=0;
     private Square[][] movableObjectsBackup;
     private Position[][] positionBackup;
+    private File file;
+    private int level;
 
     /**
      * Construktor, Creates the gameBoard based on a text file
@@ -25,6 +27,8 @@ public class Sokoban extends Observable implements Serializable {
      * @param level The level of the version, which should be loaded from the file
      */
     public Sokoban(File file, int level) {
+        this.file = file;
+        this.level = level;
         ArrayList<String> inputFromFileArray = new ArrayList<>();
         BufferedReader br;
         String line;
@@ -43,7 +47,6 @@ public class Sokoban extends Observable implements Serializable {
                         correctLevel=false;
                     }
                     inputFromFileArray.add(line);
-
                 }
             }
         } catch (IOException e) {
@@ -224,7 +227,6 @@ public class Sokoban extends Observable implements Serializable {
         buildGameBoard();
         setChanged();
         notifyObservers();
-
     }
 
     public int getGoalCount() {
@@ -236,6 +238,12 @@ public class Sokoban extends Observable implements Serializable {
     }
     public int getArrayLength() {
         return arrayLength;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        super.clone();
+        return new Sokoban(file, level);
     }
 }
 
