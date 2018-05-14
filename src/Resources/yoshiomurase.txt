@@ -1,4 +1,5 @@
 Level 1
+PLACEHOLDER
  ######
 ##  . #
 # * # #
@@ -8,6 +9,7 @@ Level 1
  #####
 
 Level 2
+PLACEHOLDER
 #######
 #  .@ #
 # #.# #
@@ -17,6 +19,7 @@ Level 2
 ####
 
 Level 3
+PLACEHOLDER
    ####
 #### @#
 #  *$ #
@@ -27,6 +30,7 @@ Level 3
  ####
 
 Level 4
+PLACEHOLDER
 ### ###
 #.###.#
 # #  .#
@@ -37,6 +41,7 @@ Level 4
 ####
 
 Level 5
+PLACEHOLDER
    ####
    # @##
 ####   #
@@ -47,6 +52,7 @@ Level 5
  #####
 
 Level 6
+PLACEHOLDER
 #####
 # ..####
 # $    #
@@ -55,6 +61,7 @@ Level 6
 ########
 
 Level 7
+PLACEHOLDER
   #####
 ###  .#
 # $ # #
@@ -65,6 +72,7 @@ Level 7
 #####
 
 Level 8
+PLACEHOLDER
 #######
 #.  @.#
 #  $# ##
@@ -74,6 +82,7 @@ Level 8
    #####
 
 Level 9
+PLACEHOLDER
 #####
 #. .###
 #.#$$ #
@@ -83,6 +92,7 @@ Level 9
  #####
 
 Level 10
+PLACEHOLDER
 #####
 #.  ###
 # #   #
@@ -93,6 +103,7 @@ Level 10
  ####
 
 Level 11
+PLACEHOLDER
 ########
 #.   . #
 # # #  #
@@ -102,6 +113,7 @@ Level 11
     ####
 
 Level 12
+PLACEHOLDER
 ####
 #  #
 #  #####
@@ -112,6 +124,7 @@ Level 12
  #####
 
 Level 13
+PLACEHOLDER
  #####
  # @ ###
 ## .   #
@@ -121,6 +134,7 @@ Level 13
  #####
 
 Level 14
+PLACEHOLDER
  #####
 ##   #
 # $# #
@@ -131,6 +145,7 @@ Level 14
  #####
 
 Level 15
+PLACEHOLDER
  ####
 ##  ####
 #..$  .#
@@ -140,6 +155,7 @@ Level 15
     ####
 
 Level 16
+PLACEHOLDER
  ######
  #  .@##
  #   $.#
@@ -150,6 +166,7 @@ Level 16
 #####
 
 Level 17
+PLACEHOLDER
  ####
  #@ #
  #  #
@@ -160,6 +177,7 @@ Level 17
   ####
 
 Level 18
+PLACEHOLDER
 #####
 #.  #
 # # ###
@@ -169,6 +187,7 @@ Level 18
 #####
 
 Level 19
+PLACEHOLDER
   #####
   #   #
   # #.#
@@ -178,6 +197,7 @@ Level 19
 #######
 
 Level 20
+PLACEHOLDER
 ######
 #   @#
 # $# ###
@@ -188,6 +208,7 @@ Level 20
   #####
 
 Level 21
+PLACEHOLDER
 ######
 #   @##
 #  #  #
@@ -197,6 +218,7 @@ Level 21
   #####
 
 Level 22
+PLACEHOLDER
   ####
 ###. #
 # .  ###
@@ -205,6 +227,7 @@ Level 22
  #######
 
 Level 23
+PLACEHOLDER
  ######
 ##@.  #
 # $$* #
@@ -215,6 +238,7 @@ Level 23
    #####
 
 Level 24
+PLACEHOLDER
     ####
     #  #
   ###$.#
@@ -225,6 +249,7 @@ Level 24
 ########
 
 Level 25
+PLACEHOLDER
 #####
 #  .###
 # $.. #
@@ -235,6 +260,7 @@ Level 25
  ####
 
 Level 26
+PLACEHOLDER
   ####
   #  #
   #  ###
@@ -245,6 +271,7 @@ Level 26
    #####
 
 Level 27
+PLACEHOLDER
 #####
 #   ###
 # # *@##
@@ -254,6 +281,7 @@ Level 27
   ######
 
 Level 28
+PLACEHOLDER
   ######
 ### .  #
 # $@#. #
@@ -264,6 +292,7 @@ Level 28
   #####
 
 Level 29
+PLACEHOLDER
  ####
 ##  ###
 #     ##
@@ -272,6 +301,7 @@ Level 29
 ########
 
 Level 30
+PLACEHOLDER
  #######
 ##@    #
 #. #   #
@@ -281,6 +311,7 @@ Level 30
 ####
 
 Level 31
+PLACEHOLDER
 ########
 #      #
 # # ##*#
@@ -291,6 +322,7 @@ Level 31
     ####
 
 Level 32
+PLACEHOLDER
  ######
  #@   ##
  ##$   #
@@ -301,6 +333,7 @@ Level 32
    ####
 
 Level 33
+PLACEHOLDER
 #####
 #   ###
 #  $  #
@@ -311,6 +344,7 @@ Level 33
   #####
 
 Level 34
+PLACEHOLDER
 #####
 #   ####
 # $$   #
@@ -321,6 +355,7 @@ Level 34
 #######
 
 Level 35
+PLACEHOLDER
 ######
 # .  #
 # .# ###
@@ -329,6 +364,7 @@ Level 35
 ########
 
 Level 36
+PLACEHOLDER
 ########
 # @.#  #
 # .$ . #
@@ -339,6 +375,7 @@ Level 36
   ####
 
 Level 37
+PLACEHOLDER
  #######
 ##   . #
 # $  $@#
@@ -349,6 +386,7 @@ Level 37
 ####
 
 Level 38
+PLACEHOLDER
 ######
 # .  #
 #  #@#
@@ -359,6 +397,7 @@ Level 38
 #######
 
 Level 39
+PLACEHOLDER
    #####
 #### . #
 # *@ . #
@@ -368,6 +407,7 @@ Level 39
 #####
 
 Level 40
+PLACEHOLDER
   ####
 ###  ###
 # .. $.#
@@ -376,6 +416,7 @@ Level 40
    #####
 
 Level 41
+PLACEHOLDER
     ####
     #@ #
 ##### .#
@@ -385,6 +426,7 @@ Level 41
   ######
 
 Level 42
+PLACEHOLDER
 ########
 #   #  #
 # #.$ $#
@@ -395,6 +437,7 @@ Level 42
   ######
 
 Level 43
+PLACEHOLDER
    ####
   ##@ ##
  ##  ..#
@@ -405,6 +448,7 @@ Level 43
 ######
 
 Level 44
+PLACEHOLDER
 ######
 #   @#
 # $$####
@@ -415,6 +459,7 @@ Level 44
 ########
 
 Level 45
+PLACEHOLDER
    ####
    #  #
 #### $##
@@ -425,6 +470,7 @@ Level 45
 ########
 
 Level 46
+PLACEHOLDER
    #####
    # @ #
  ###   #
@@ -435,6 +481,7 @@ Level 46
 #######
 
 Level 47
+PLACEHOLDER
    #####
 ####. @#
 #  .$  #
@@ -444,6 +491,7 @@ Level 47
    #####
 
 Level 48
+PLACEHOLDER
 ########
 #  .# @#
 # # $  #
@@ -453,6 +501,7 @@ Level 48
  ####
 
 Level 49
+PLACEHOLDER
 #######
 #     #
 #.## .#
@@ -462,6 +511,7 @@ Level 49
 #######
 
 Level 50
+PLACEHOLDER
 ####
 #. #
 # $#
@@ -472,6 +522,7 @@ Level 50
   ######
 
 Level 51
+PLACEHOLDER
 ########
 #      #
 # #$   #
@@ -481,6 +532,7 @@ Level 51
  #######
 
 Level 52
+PLACEHOLDER
 ######
 #  . #
 #    ###
