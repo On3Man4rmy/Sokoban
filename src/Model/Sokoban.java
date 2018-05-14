@@ -45,9 +45,12 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
                 if(correctLevel){
                     if(line.equals("Level "+(level+1))){
                         correctLevel=false;
+                    }}
+
+                    if(correctLevel&&!line.isEmpty()) {
+                        inputFromFileArray.add(line);
                     }
-                    inputFromFileArray.add(line);
-                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,8 +62,16 @@ public class Sokoban extends Observable implements Serializable, Cloneable {
          */
         inputFromFileArray.remove(0);
         inputFromFileArray.remove(0);
-        inputFromFileArray.remove(inputFromFileArray.size()-1);
-        inputFromFileArray.remove(inputFromFileArray.size()-1);
+        if(inputFromFileArray.get(inputFromFileArray.size()-1).equals("\n")) {
+
+
+            inputFromFileArray.remove(inputFromFileArray.size() - 1);
+        }
+        if(inputFromFileArray.get(inputFromFileArray.size()-1).equals("\n")) {
+
+            inputFromFileArray.remove(inputFromFileArray.size() - 1);
+        }
+
 
         arrayHeight = inputFromFileArray.size();
 
